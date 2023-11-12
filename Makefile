@@ -16,7 +16,7 @@ endif
 devrun:
 	@go run $(srcDir)
 
-# Clean bin folder.
+# Clean out folder.
 clean:
 	@echo -e "\n--> Cleaning ./out folder"
 	rm -rf $(outDir)/* 2> /dev/nul || echo "clean: Nothing to do."
