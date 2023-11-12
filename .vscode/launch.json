@@ -5,11 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Package",
+            "name": "Universal Health Check",
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/src"
+            "program": "${workspaceFolder}/src",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Universal Health Check (External terminal)",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/src",
+            "console": "externalTerminal"
         }
     ]
 }
