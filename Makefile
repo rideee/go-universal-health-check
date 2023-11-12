@@ -1,5 +1,5 @@
 srcDir=./src
-binDir=./bin
+outDir=./out
 
 ifeq ($(OS),Windows_NT)     		# is Windows_NT on XP, 2000, 7, Vista, 10...
     detected_OS := Windows
@@ -18,12 +18,18 @@ devrun:
 
 # Clean bin folder.
 clean:
-	@rm $(binDir)/* 2> /dev/nul || echo "clean: Nothing to do."
+	@echo -e "\n--> Cleaning ./out folder"
+	rm -rf $(outDir)/* 2> /dev/nul || echo "clean: Nothing to do."
 
 # Build application.
 build:
-	go build -o $(binDir)/$(binName) $(srcDir)
+	@echo -e "\n--> Building project"
+	go build -o $(outDir)/$(binName) $(srcDir)
 
+	@echo -e "\n--> Copying required files"
+	test -d $(outDir)/config || mkdir $(outDir)/config
+	cp -rf $(srcDir)/config/* $(outDir)/config/
 # Run the built application.
 run:
-	$(binDir)/$(binName)
+	@echo -e "\n--> Running application: $(outDir)/$(binName)\n"
+	@$(outDir)/$(binName)
