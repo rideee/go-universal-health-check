@@ -19,7 +19,7 @@
   "Servers": [
     {
       "name": "BE1",
-      "type": "Backend",
+      "serverType": "Backend",
       "ip": "192.168.1.200",
       "port": "22",
       "username": "rid",
@@ -29,7 +29,7 @@
     },
     {
       "name": "FE1",
-      "type": "Frontend",
+      "serverType": "Frontend",
       "ip": "192.168.1.200",
       "port": "22",
       "username": "rid",
@@ -39,7 +39,7 @@
     },
     {
       "name": "DS1",
-      "type": "Directory",
+      "serverType": "Directory",
       "ip": "192.168.1.200",
       "port": "22",
       "username": "rid",
