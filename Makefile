@@ -1,3 +1,6 @@
+srcDir=./src
+binDir=./bin
+
 ifeq ($(OS),Windows_NT)     		# is Windows_NT on XP, 2000, 7, Vista, 10...
     detected_OS := Windows
 	binName = unihc.exe
@@ -11,16 +14,16 @@ endif
 
 # Run application.
 devrun:
-	@go run ./src/
+	@go run $(srcDir)
 
 # Clean bin folder.
 clean:
-	$(clean)
+	@rm $(binDir)/* 2> /dev/nul || echo "clean: Nothing to do."
 
 # Build application.
 build:
-	go build -o bin/$(binName) ./src/
+	go build -o $(binDir)/$(binName) $(srcDir)
 
 # Run the built application.
 run:
-	./bin/$(binName)
+	$(binDir)/$(binName)
