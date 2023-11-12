@@ -24,7 +24,7 @@
       "port": "22",
       "username": "rid",
       "password": "",
-      "key": "/Users/rid/.ssh/id_rsa",
+      "key": "$HOME/.ssh/id_rsa",
       "passphrase": ""
     },
     {
@@ -34,7 +34,7 @@
       "port": "22",
       "username": "rid",
       "password": "",
-      "key": "/Users/rid/.ssh/id_rsa",
+      "key": "$HOME/.ssh/id_rsa",
       "passphrase": ""
     },
     {
@@ -44,7 +44,7 @@
       "port": "22",
       "username": "rid",
       "password": "",
-      "key": "/Users/rid/.ssh/id_rsa",
+      "key": "$HOME/.ssh/id_rsa",
       "passphrase": ""
     }
   ]
