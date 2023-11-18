@@ -15,7 +15,7 @@ func main() {
 	// Measure execution time.
 	startTime := time.Now()
 
-	// Set Paths.
+	// Set paths.
 	exec, _ := os.Executable()
 	baseDir := filepath.Dir(exec)
 	configDir := filepath.Join(baseDir, "config")
@@ -23,7 +23,15 @@ func main() {
 	// Initialize config parser.
 	config := utils.NewConfigParser(configDir)
 
+	// Initialize logger.
+	logger := utils.NewLogger(config.GeneralConfigData.DebugMode)
+
+	logger.Debugf("Startup time: %v\n", time.Now().Format(time.UnixDate))
+	logger.Debugf("PATHS:\nEXEC: %v\nBASE_DIR: %v\nCONFIG_DIR: %v\n", exec, baseDir, configDir)
+
 	// Set colors.
+	logger.Debug("Assigning color variables from a JSON file.")
+	logger.Debugf("ColorfulOutput set to %v\n", config.GeneralConfigData.ColorfulOutput)
 	const COLOR_RESET string = "\u001B[0m"
 	var COLOR_PRIMARY string
 	var COLOR_SECONDARY string
@@ -34,6 +42,8 @@ func main() {
 		COLOR_TERTIARY = config.GeneralConfigData.ColorTertiary
 	}
 
+	// Welcome message.
+	logger.Debug("Printing welcome message.")
 	fmt.Print(COLOR_SECONDARY)
 	fmt.Println("\nUniversal Health Check (Go implementation) made by Michał Kątnik (github.com/rideee/go-universal-health-check)")
 	fmt.Print(COLOR_TERTIARY)
@@ -41,16 +51,23 @@ func main() {
 	fmt.Print(COLOR_RESET)
 
 	// Initialize channels slice.
+	logger.Debug("Initializing channels slice.")
 	var channels []chan string
 
 	// Goroutine main loop.
-	for _, srv := range config.ServersConfigData.Servers {
+	logger.Debug("Starting the main goroutines loop.")
+	for i, srv := range config.ServersConfigData.Servers {
+
+		logger.Debugf("Goroutine loop - iteration no. %d (for %s).\n", i+1, srv)
 
 		// Make a new channel for every iterration of the loop and apped it to channels slice.
+		logger.Debug("Making a new channel.")
 		channel := make(chan string)
+		logger.Debug("Appending a channel to a channel slice.")
 		channels = append(channels, channel)
 
 		// Run goroutine annonymous function.
+		logger.Debug("Running goroutine func.")
 		go func(channel chan string, srv models.Server) {
 
 			srvTypeObject := config.ServerTypesMap[srv.ServerType]
@@ -64,13 +81,16 @@ func main() {
 			output += fmt.Sprintf("Command:\n%s\n", srvTypeObject.Command)
 
 			// Send data to the channel.
+			logger.Debug("Sending data from goroutine func to the channel.")
 			channel <- output
 
 		}(channel, srv)
 	}
 
 	// Collect data from all channels in correct order (FIFO) and print them.
+	logger.Debug("Starting a channel loop.")
 	for _, ch := range channels {
+		logger.Debug("Printing data from the channel.")
 		fmt.Println(<-ch)
 	}
 
