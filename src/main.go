@@ -19,19 +19,20 @@ func main() {
 	exec, _ := os.Executable()
 	baseDir := filepath.Dir(exec)
 	configDir := filepath.Join(baseDir, "config")
-	configServersFile := filepath.Join(configDir, "servers.json")
 
 	// Initialize config parser.
-	config := utils.NewConfigParser(configServersFile)
+	config := utils.NewConfigParser(configDir)
 
 	// Set colors.
-	// TODO: get the colors from general.json config file.
 	const COLOR_RESET string = "\u001B[0m"
-	const COLOR_PRIMARY string = "\u001B[35m"
-	const COLOR_SECONDARY string = "\u001B[36m"
-	const COLOR_TERTIARY string = "\u001B[34m"
-	const COLOR_WARNING string = "\u001B[33m"
-	const COLOR_ERROR string = "\u001B[31m"
+	var COLOR_PRIMARY string
+	var COLOR_SECONDARY string
+	var COLOR_TERTIARY string
+	if config.GeneralConfigData.ColorfulOutput {
+		COLOR_PRIMARY = config.GeneralConfigData.ColorPrimary
+		COLOR_SECONDARY = config.GeneralConfigData.ColorSecondary
+		COLOR_TERTIARY = config.GeneralConfigData.ColorTertiary
+	}
 
 	fmt.Print(COLOR_SECONDARY)
 	fmt.Println("\nUniversal Health Check (Go implementation) made by Michał Kątnik (github.com/rideee/go-universal-health-check)")
@@ -58,6 +59,8 @@ func main() {
 			output += fmt.Sprintf("| Type: %s; ", srv.ServerType)
 			output += fmt.Sprintf("Method: %s, %s:%s logging as %s\n", srvTypeObject.Method, srv.IP, srv.Port, srv.Username)
 			output += COLOR_RESET
+
+			// TODO: Implement real action.
 			output += fmt.Sprintf("Command:\n%s\n", srvTypeObject.Command)
 
 			// Send data to the channel.

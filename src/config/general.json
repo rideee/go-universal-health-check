@@ -1,11 +1,8 @@
 {
-  "LogFile": "$HOME/.healthCheck/healthCheck.log",
-  "ServerTypesConfig": "$HOME/.healthCheck/serverTypes.json",
-  "ServerListConfig": "$HOME/.healthCheck/serverTypes.json",
-  "Appearance": {
-    "HeaderColor": "\\e[38;5;199;1m",
-    "BackendHeaderColor": "\\e[38;5;199;1m",
-    "FrontendHeaderColor": "\\e[38;5;199;1m",
-    "DirectoryHeaderColor": "\\e[38;5;199;1m"
-  }
+  "LogFile": "$HOME/.unihc/universal-health-check.log",
+  "DebugMode": true,
+  "ColorfulOutput": true,
+  "ColorPrimary": "\u001B[34m",
+  "ColorSecondary": "\u001B[35m",
+  "ColorTertiary": "\u001B[36m"
 }
